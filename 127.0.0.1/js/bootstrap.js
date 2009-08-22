@@ -1,12 +1,12 @@
-system.use("com.joyent.Resource");
-
 system.use("config");
 system.use("lib.clayburn");
 system.use("controllers");
 
+system.use("com.joyent.Resource");
 var Task = new Resource('task');
 
 /*
+// Very expieremental Full Resources coming soon.
  Generates 
     /tasks/index        GET
     /tasks/:id/show     GET
@@ -16,17 +16,10 @@ var Task = new Resource('task');
     /tasks/:id/delete   GET | DELETE        
 */
 
+// Resources are always in plural form.
+// resources('comments');
 
-// resources('task');
-// resources('task', {member : {woot : 'get'}} );
-// resources('post/comments');
-// route('task', ['comments','blah']);
-
-// match('/index/:something').to({ controller: 'Home', action: 'index'}); 
-
-//match('/index.html').to({ controller: 'Home', action: 'index' });
 match('/').to({ controller: 'Task', action: 'index' });
-
 
 match('/:controller/:action/:id').to();
 match('/:controller/:action').to();

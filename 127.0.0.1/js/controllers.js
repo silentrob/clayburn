@@ -1,3 +1,9 @@
+CommentsController = {    
+    index : function() {
+        this.render("HERE");
+    }
+}
+
 HomeController = {
     layout : 'application.html',
     

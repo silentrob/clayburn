@@ -11,30 +11,25 @@ function resources( name , options) {
     editGetUrl  = new RegExp(name+"\/([0-9]+)\/edit");      // -- /task/:id/edit
     delGetUrl   = new RegExp(name+"\/([0-9]+)\/delete");    // -- /task/:id/delete        
     editUrl     = new RegExp(name+"\/([0-9]+)$");           // -- /task/:id
-
-
-    // Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET,that.aTest]), this.data ));
     
-    var c = eval(objName + "Controller");
+    // TODO roll this into a DRY Loop
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, indexUrl ]),   { controller : objName, action : 'index' })); 
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, showUrl ]),    { controller : objName, action : 'show' })); 
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, newUrl ]),     { controller : objName, action : 'new' }));     
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.POST, indexUrl ]),  { controller : objName, action : 'create' }));
 
-    Stack.add(new Sammy.Handler(c['index'],     Sammy.generate_test([Sammy.Test.Method.GET,indexUrl])));
-    Stack.add(new Sammy.Handler(c['show'],      Sammy.generate_test([Sammy.Test.Method.GET,showUrl])));
-    Stack.add(new Sammy.Handler(c['new'],       Sammy.generate_test([Sammy.Test.Method.GET,newUrl])));
-    Stack.add(new Sammy.Handler(c['create'],    Sammy.generate_test([Sammy.Test.Method.POST,indexUrl])));    
- 
-    Stack.add(new Sammy.Handler(c['update'],    Sammy.generate_test([Sammy.Test.Method.PUT,editUrl])));
-    Stack.add(new Sammy.Handler(c['destroy'],   Sammy.generate_test([Sammy.Test.Method.DELETE,editUrl])));
- 
-    Stack.add(new Sammy.Handler(c['show'],      Sammy.generate_test([Sammy.Test.Method.GET,editUrl])));   
-    Stack.add(new Sammy.Handler(c['edit'],      Sammy.generate_test([Sammy.Test.Method.GET,editGetUrl])));
-    Stack.add(new Sammy.Handler(c['delete'],    Sammy.generate_test([Sammy.Test.Method.GET,delGetUrl])));    
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.PUT, editUrl ]),    { controller : objName, action : 'update' })); 
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.DELETE, editUrl ]), { controller : objName, action : 'destroy' })); 
+
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, editUrl ]),    { controller : objName, action : 'show' })); 
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, editGetUrl ]), { controller : objName, action : 'edit' })); 
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, delGetUrl ]),  { controller : objName, action : 'delete' }));             
     
     return this;
     
 }
 
 function match(aTest) {
-    
 
     this.segments = [];
     
@@ -120,6 +115,9 @@ Router.Handler = function( shouldRun, p ) {
         
         dict['params']['controller'] = (p.controller || dict['params'].controller);
         dict['params']['action'] = (p.action || dict['params'].action );
+        
+        system.console.log(log(dict['params'].controller) + "========");
+        
         dict['obj'] = getConctollerName(dict['params'].controller);
 
         args.push(dict);
@@ -186,14 +184,12 @@ Router.Handler = function( shouldRun, p ) {
     };
 };
 
-
+// TODO Move these either into the router or core-ext
 var getConctollerName = function(c) {
     var name = c.toLowerCase();
     var objName = name.substr(0,1).toUpperCase() + name.substr(1);
-    var c = eval(objName + "Controller");
-    return c;
+    return eval(objName + "Controller");
 }
-
 
 size = function(obj) {
     var size = 0, key;

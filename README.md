@@ -78,7 +78,7 @@ All Form data is passed into the controller.
 
 **display(thing,options)**
 
-- More info coming soon. 
+- More info coming soon.
 
 **redirect(location)**
 
@@ -108,7 +108,7 @@ The Exception controller has all the same mixin methods provided by the main con
   
 ### Views ###
 
-All the views use EJS - Embedded Javascript.
+All the views use EJS - [Embedded Javascript](http://embeddedjs.com/).
 
     <ul>
       <% for(var i = 0 ; i < tasks.length; i++ ) { %>
