@@ -5,6 +5,8 @@ If you are familiar with Ruby on Rails, Merb or Code Igniter, Clayburn should be
 
 ## Getting Started ##
 
+Included is a remake of the Task Example provided by Joyent, this should give you a general idea how everything works.
+
     $cd /clayburn
     $./run-smart.sh
 
@@ -13,9 +15,24 @@ If you are familiar with Ruby on Rails, Merb or Code Igniter, Clayburn should be
     match('/index.html').to({ controller: 'Home', action: 'index' });
     match('/:controller/:action/:id').to();
     
+### Router API ###
+- match(pattern)
+- to() 
+    
 ### Controller ###
   
+    // Controller Mixin
+  
     HomeController = {
+      before : function() {
+        // Run this code before any action
+      },
+      after : function() {
+        // Run this code after any action
+      },
+      
+      layout : "some_html_file.html", // Optional Controller wide Layout
+      
       index : function (data) {  
         this.render();
       },
@@ -24,6 +41,22 @@ If you are familiar with Ruby on Rails, Merb or Code Igniter, Clayburn should be
         this.render();
       }    
     }
+    
+### Controller API ###
+
+All controllers are mixed into the Clayburn Controller and add these methods.
+
+- render(thing,options)
+  - this.render("This is how I work :)");                     // Test 1 - Display this text
+  - this.render();                                            // Test 2 - Display this template, or Error
+  - this.render({layout:"application.html"});                 // Test 2.b default action with 
+  - this.render({template:'/baz.html'});                      // Test 3 - Custom Template 
+  - this.render({template:'/baz.html', layout:'blah.html'});  // Test 4 - Custom Layout
+
+- display(thing,options)
+  - More info coming soon. 
+- redirect(location)
+  - this.redirect("/task/index");
   
 ### Views ###
 
