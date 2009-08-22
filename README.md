@@ -46,13 +46,15 @@ Included is a remake of the Task Example provided by Joyent, this should give yo
 
 All controllers are mixed into the Clayburn Controller and add these methods.
 
+To pass data back to the views populate this.data with an object BEFORE you call render.
+All Form data is passed into the controller.
+
 - render(thing,options)
   - this.render("This is how I work :)");                     // Test 1 - Display this text
   - this.render();                                            // Test 2 - Display this template, or Error
   - this.render({layout:"application.html"});                 // Test 2.b default action with 
   - this.render({template:'/baz.html'});                      // Test 3 - Custom Template 
   - this.render({template:'/baz.html', layout:'blah.html'});  // Test 4 - Custom Layout
-
 - display(thing,options)
   - More info coming soon. 
 - redirect(location)
