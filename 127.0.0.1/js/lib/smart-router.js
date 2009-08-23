@@ -19,7 +19,7 @@ function resources( name , options) {
     Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.POST, indexUrl ]),  { segment_item : [], controller : objName, action : 'create' }));
 
     Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.PUT, editUrl ]),    { segment_item : [], controller : objName, action : 'update' })); 
-    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.DELETE, editUrl ]), { segment_item : [], controller : objName, action : 'destroy' })); 
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.DELETE, editUrl ]), { segment_item : ['id'], controller : objName, action : 'destroy' })); 
 
     Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, editUrl ]),    { segment_item : ['id'], controller : objName, action : 'show' })); 
     Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, editGetUrl ]), { segment_item : [], controller : objName, action : 'edit' })); 

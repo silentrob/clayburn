@@ -64,13 +64,10 @@ TasksController = {
     },
     
     destroy : function (p) {
-        try {
-            var task = Task.get( p.id );
-            task.remove();
-        } catch(e) {
-
-        }
-        this.redirect("/tasks/index")
+        var task = Task.get( p.id );
+        task.remove();
+        this.render("{all:'ok'}");
+//        this.redirect("/tasks/index")
         
     }   
 }

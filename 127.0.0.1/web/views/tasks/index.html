@@ -7,14 +7,9 @@ $(document).ready( function() {
       $.ajax({
         type: 'delete',
         url: $(this).attr('href'),
-        dataType: 'json',
         success: function(data, textStatus) {
-          if (data['ok'] == true) {
             var toRemove = $(theAnchor).attr('data-remove');
             $("#" + toRemove).remove();
-          } else {
-            alert( "Oooops!, something failed" );
-          } 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
           alert("Ooooops!, request failed with status: " + XMLHttpRequest.status + ' ' + XMLHttpRequest.responseText);
@@ -31,7 +26,7 @@ $(document).ready( function() {
 <h2>Task Listing</h2>
 <ul>
   <% for(var i = 0 ; i < tasks.length; i++ ) { %>
-    <li><a href="/tasks/<%= tasks[i].id %>"> <%= tasks[i].title %> <%= tasks[i].notes %></a> - <form action="/tasks/<%= tasks[i].id %>" method="DELETE"><input type="hidden" name="_method" value="DELETE" /><input type="submit" name="del" value="Delete Note" /></form>  - <a class="delete" href="/tasks/<%= tasks[i].id %>" data-remove="task_<%= tasks[i].id %>"></li>
+    <li id="task_<%= tasks[i].id %>"><a href="/tasks/<%= tasks[i].id %>"> <%= tasks[i].title %> <%= tasks[i].notes %></a> - <!--form action="/tasks/<%= tasks[i].id %>" method="DELETE"><input type="submit" name="del" value="Delete Note" /></form-->  <a class="delete" href="/tasks/<%= tasks[i].id %>" data-remove="task_<%= tasks[i].id %>">Delete</a></li>
   <% } %>
 </ul>
 
