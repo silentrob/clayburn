@@ -5,25 +5,26 @@ function resources( name , options) {
     name = name.toLowerCase();
     objName = name.substr(0,1).toUpperCase() + name.substr(1);
 
-    indexUrl    = new RegExp(name+"$|"+name+"\/index");     // -- /task or /task/index
-    showUrl     = new RegExp(name+"\/([0-9]+)\/show");      // -- /task/:id/show
-    newUrl      = new RegExp(name+"\/new");                 // -- /task/new
-    editGetUrl  = new RegExp(name+"\/([0-9]+)\/edit");      // -- /task/:id/edit
-    delGetUrl   = new RegExp(name+"\/([0-9]+)\/delete");    // -- /task/:id/delete        
-    editUrl     = new RegExp(name+"\/([0-9]+)$");           // -- /task/:id
+    indexUrl    = new RegExp(name+"$|"+name+"\/index");             // -- /task or /task/index
+    showUrl     = new RegExp(name+"\/([a-z0-9_-]+)\/show","i");     // -- /task/:id/show
+    newUrl      = new RegExp(name+"\/new");                         // -- /task/new
+    editGetUrl  = new RegExp(name+"\/([a-z0-9_-]+)\/edit","i");     // -- /task/:id/edit
+    delGetUrl   = new RegExp(name+"\/([a-z0-9_-]+)\/delete","i");   // -- /task/:id/delete        
+    editUrl     = new RegExp(name+"\/([a-z0-9_-]+)$","i");          // -- /task/:id
     
     // TODO roll this into a DRY Loop
-    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, indexUrl ]),   { controller : objName, action : 'index' })); 
-    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, showUrl ]),    { controller : objName, action : 'show' })); 
-    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, newUrl ]),     { controller : objName, action : 'new' }));     
-    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.POST, indexUrl ]),  { controller : objName, action : 'create' }));
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, indexUrl ]),   { segment_item : [], controller : objName, action : 'index' })); 
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, showUrl ]),    { segment_item : ['id'], controller : objName, action : 'show' })); 
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, newUrl ]),     { segment_item : [], controller : objName, action : 'new' }));     
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.POST, indexUrl ]),  { segment_item : [], controller : objName, action : 'create' }));
 
-    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.PUT, editUrl ]),    { controller : objName, action : 'update' })); 
-    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.DELETE, editUrl ]), { controller : objName, action : 'destroy' })); 
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.PUT, editUrl ]),    { segment_item : [], controller : objName, action : 'update' })); 
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.DELETE, editUrl ]), { segment_item : [], controller : objName, action : 'destroy' })); 
 
-    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, editUrl ]),    { controller : objName, action : 'show' })); 
-    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, editGetUrl ]), { controller : objName, action : 'edit' })); 
-    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, delGetUrl ]),  { controller : objName, action : 'delete' }));             
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, editUrl ]),    { segment_item : ['id'], controller : objName, action : 'show' })); 
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, editGetUrl ]), { segment_item : [], controller : objName, action : 'edit' })); 
+    Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, delGetUrl ]),  { segment_item : [], controller : objName, action : 'delete' }));             
+
     
     return this;
     
@@ -110,7 +111,8 @@ Router.Handler = function( shouldRun, p ) {
 
         // Asign the arguments to the keys
         for(var a = 0; a < arguments.length; a++ ) {
-            dict['params'][p['segment_item'][a]] = arguments[a];
+            system.console.log(arguments[a]);
+           dict['params'][p['segment_item'][a]] = arguments[a];
         }
         
         dict['params']['controller'] = (p.controller || dict['params'].controller);

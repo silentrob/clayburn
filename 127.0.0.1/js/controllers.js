@@ -1,6 +1,11 @@
 CommentsController = {    
+    layout : 'application.html',
+    
     index : function() {
         this.render("HERE");
+    },
+    show : function() {
+        this.render();
     }
 }
 
@@ -28,7 +33,7 @@ HomeController = {
     }
 }
 
-TaskController = {
+TasksController = {
     layout : 'application.html',
     
     index : function (p) {  
@@ -40,6 +45,7 @@ TaskController = {
     },
     
     show : function (data) {
+        system.console.log(log(data));
         try {
            this.data.task = Task.get( data.id );
          } catch(e) {
@@ -54,17 +60,17 @@ TaskController = {
         task.notes = p['notes'];
         task.title = p['title'];
         task.save();
-        this.redirect('/task/index');
+        this.redirect('/tasks/index');
     },
     
-    delete : function (p) {
+    destroy : function (p) {
         try {
             var task = Task.get( p.id );
             task.remove();
         } catch(e) {
 
         }
-        this.redirect("/task/index")
+        this.redirect("/tasks/index")
         
     }   
 }

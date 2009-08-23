@@ -1,0 +1,52 @@
+<script>
+$(document).ready( function() {
+
+  $('a.delete').click( function() {
+    var theAnchor = this;
+    if ( confirm('Are you sure you want to delete this?' ) )
+      $.ajax({
+        type: 'delete',
+        url: $(this).attr('href'),
+        dataType: 'json',
+        success: function(data, textStatus) {
+          if (data['ok'] == true) {
+            var toRemove = $(theAnchor).attr('data-remove');
+            $("#" + toRemove).remove();
+          } else {
+            alert( "Oooops!, something failed" );
+          } 
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          alert("Ooooops!, request failed with status: " + XMLHttpRequest.status + ' ' + XMLHttpRequest.responseText);
+        }
+      });
+    return false;
+  });
+
+});
+
+</script>
+<p>This is the main task page...</p>
+
+<h2>Task Listing</h2>
+<ul>
+  <% for(var i = 0 ; i < tasks.length; i++ ) { %>
+    <li><a href="/tasks/<%= tasks[i].id %>"> <%= tasks[i].title %> <%= tasks[i].notes %></a> - <form action="/tasks/<%= tasks[i].id %>" method="DELETE"><input type="hidden" name="_method" value="DELETE" /><input type="submit" name="del" value="Delete Note" /></form>  - <a class="delete" href="/tasks/<%= tasks[i].id %>" data-remove="task_<%= tasks[i].id %>"></li>
+  <% } %>
+</ul>
+
+<h2>Create a new task:</h2>
+<form action="/tasks" method="post">
+  <div class="field">
+    <label for="title">Task title:</label>
+    <input type="text" name="title" id="title" class="text" />
+  </div>
+  <div class="field">
+    <label for="notes">Notes:</label>
+    <textarea rows="6" cols="40" name="notes" id="notes"></textarea>
+  </div>
+  <div class="field">
+    <input type="submit" value="Save" />             
+  </div>
+</form>
+

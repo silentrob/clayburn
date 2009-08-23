@@ -8,21 +8,20 @@ var Task = new Resource('task');
 /*
 // Very expieremental Full Resources coming soon.
  Generates 
-    /tasks/index        GET
-    /tasks/:id/show     GET
-    /tasks/new          GET | POST
-    /tasks/update       PUT
-    /tasks/:id/edit     GET | PUT
-    /tasks/:id/delete   GET | DELETE        
+    -- /task or /task/index 
+    -- /task/:id/show           
+    -- /task/new                
+    -- /task/:id/edit           
+    -- /task/:id/delete         
+    -- /task/:id                      
 */
 
-// Resources are always in plural form.
-// resources('comments');
+resources('tasks');
 
-match('/').to({ controller: 'Task', action: 'index' });
+match('/').to({ controller: 'Tasks', action: 'index' });
 
-match('/:controller/:action/:id').to();
-match('/:controller/:action').to();
+// match('/:controller/:action/:id').to();
+// match('/:controller/:action').to();
 
 
 
