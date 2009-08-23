@@ -25,6 +25,12 @@ Included is a remake of the Task Example provided by Joyent, this should give yo
     // This will match : /baz/fee/fi/foo/bar
     // Redirect to the Tasks Controller calling the fee action and passing in [ id:'fi', fish:'foo', sticks:'bar' ]
     match('/baz/:action/:id/:fish/:sticks').to({ controller: 'Tasks' });
+    
+    -- or --
+    
+    // This will generate an entire Restull route.    
+    resources('tasks');
+
 
     
 ### Router API ###
@@ -33,6 +39,19 @@ pattern:String - Pattern can be an path or url where you want the request to go,
     
 **to(options = {})** 
 options:Object - Optional, valid keys: controller, action
+
+**resources(name = String)**
+name:String - The name of the resource you want to create.
+
+This generates routes for
+
+- /name and /name/index  -- GET | POST
+- /name/:id/show -- GET
+- /name/new -- GET
+- /name/:id/edit -- GET
+- /name/:id/delete -- GET
+- /name/:id -- GET | PUT | DELETE
+
 
 To is chained together with match, it kicks off the request and makes everything work.
 I successful request will need to have at the very least a controller and action either explicitly set in the to method, or from the pattern in the match method.
