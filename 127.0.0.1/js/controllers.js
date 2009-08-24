@@ -66,8 +66,8 @@ TasksController = {
     destroy : function (p) {
         var task = Task.get( p.id );
         task.remove();
-        this.render("{all:'ok'}");
-//        this.redirect("/tasks/index")
+        // this.render("{all:'ok'}");
+       this.redirect("/tasks/index")
         
     }   
 }

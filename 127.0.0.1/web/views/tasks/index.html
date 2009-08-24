@@ -26,7 +26,7 @@ $(document).ready( function() {
 <h2>Task Listing</h2>
 <ul>
   <% for(var i = 0 ; i < tasks.length; i++ ) { %>
-    <li id="task_<%= tasks[i].id %>"><a href="/tasks/<%= tasks[i].id %>"> <%= tasks[i].title %> <%= tasks[i].notes %></a> - <!--form action="/tasks/<%= tasks[i].id %>" method="DELETE"><input type="submit" name="del" value="Delete Note" /></form-->  <a class="delete" href="/tasks/<%= tasks[i].id %>" data-remove="task_<%= tasks[i].id %>">Delete</a></li>
+    <li id="task_<%= tasks[i].id %>"><a href="/tasks/<%= tasks[i].id %>"> <%= tasks[i].title %> <%= tasks[i].notes %></a> - <form action="/tasks/<%= tasks[i].id %>" method="POST"><input type="hidden" name="_method" value="DELETE" /><input type="submit" name="del" value="Delete Note" /></form>  <!--a class="delete" href="/tasks/<%= tasks[i].id %>" data-remove="task_<%= tasks[i].id %>">Delete</a--></li>
   <% } %>
 </ul>
 
