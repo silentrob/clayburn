@@ -40,7 +40,6 @@ TasksController = {
 
         var tasks = Task.search({});
         this.data.tasks = tasks || {};
-
         this.render();
     },
     
@@ -66,7 +65,6 @@ TasksController = {
     destroy : function (p) {
         var task = Task.get( p.id );
         task.remove();
-        // this.render("{all:'ok'}");
        this.redirect("/tasks/index")
         
     }   

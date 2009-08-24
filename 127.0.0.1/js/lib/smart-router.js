@@ -120,8 +120,6 @@ Router.Handler = function( shouldRun, p ) {
         dict['params']['controller'] = (p.controller || dict['params'].controller);
         dict['params']['action'] = (p.action || dict['params'].action );
         
-        system.console.log(log(dict['params'].controller) + "========");
-        
         dict['obj'] = getConctollerName(dict['params'].controller);
 
         args.push(dict);
