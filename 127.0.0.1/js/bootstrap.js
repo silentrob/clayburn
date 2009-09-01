@@ -1,9 +1,10 @@
 system.use("config");
 system.use("lib.clayburn");
 system.use("controllers");
+system.use("model");
 
-system.use("com.joyent.Resource");
-var Task = new Resource('task');
+// Generating a Task Model
+var Task = new Model('task');
 
 /*
 // Very expieremental Full Resources coming soon.

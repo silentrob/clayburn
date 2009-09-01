@@ -9,6 +9,10 @@ CommentsController = {
     }
 }
 
+/**
+ *  This is an example controller.
+ *  The name of the controller is always prefixed with 'Controller'
+ */
 HomeController = {
     layout : 'application.html',
     
@@ -37,14 +41,11 @@ TasksController = {
     layout : 'application.html',
     
     index : function (p) {  
-
-        var tasks = Task.search({});
-        this.data.tasks = tasks || {};
+        this.data.tasks = Task.all();
         this.render();
     },
     
     show : function (data) {
-        system.console.log(log(data));
         try {
            this.data.task = Task.get( data.id );
          } catch(e) {
@@ -55,9 +56,7 @@ TasksController = {
     
     create : function(p) {
 
-        var task = new Task();
-        task.notes = p['notes'];
-        task.title = p['title'];
+        var task = new Task(p);
         task.save();
         this.redirect('/tasks/index');
     },

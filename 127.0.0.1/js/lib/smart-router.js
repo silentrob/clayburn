@@ -2,6 +2,7 @@ system.use("com.joyent.Sammy");
 
 function resources( name , options) {
     
+    
     name = name.toLowerCase();
     objName = name.substr(0,1).toUpperCase() + name.substr(1);
 
@@ -27,9 +28,8 @@ function resources( name , options) {
     Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, editGetUrl ]), { segment_item : [], controller : objName, action : 'edit' })); 
     Stack.add(new Router.Handler(Sammy.generate_test([Sammy.Test.Method.GET, delGetUrl ]),  { segment_item : [], controller : objName, action : 'delete' }));             
 
-    
     return this;
-    
+     
 }
 
 function match(aTest) {
