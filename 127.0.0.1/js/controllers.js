@@ -55,17 +55,15 @@ TasksController = {
     },
     
     create : function(p) {
-
         var task = new Task(p);
         task.save();
-        this.redirect('/tasks/index');
+        this.redirect('index');
     },
     
     destroy : function (p) {
         var task = Task.get( p.id );
         task.remove();
-       this.redirect("/tasks/index")
-        
+        this.redirect("index")
     }   
 }
 

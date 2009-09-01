@@ -116,10 +116,17 @@ ControllerMixin.prototype = {
     },
     
     redirect : function ( aLocation ) {
-      var response = new Stack.Response();
-      response.code = 301;
-      response.headers.Location = aLocation;
-      this.response = response;
+        var loc = "";
+        if (/$\//.test(aLocation)) {
+            loc = aLocation;
+        } else {
+            loc = "/" + this.params.controller.toLowerCase() + "/" + aLocation;
+        }
+        
+        var response = new Stack.Response();
+        response.code = 301;
+        response.headers.Location = loc;
+        this.response = response;
     },
 
     handleStatus : function(opts) {
