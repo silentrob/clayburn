@@ -99,9 +99,12 @@ All Form data is passed into the controller.
 
 - More info coming soon.
 
+Redirect to a new Method or URL
+
 **redirect(location)**
 
 - this.redirect("/task/index");
+- this.redirect("show"); - Redirects to this controllers show method.
   
 ### Exception Controller ###
 Clayburn also supports raised exceptions, you can set, throw and override any exception.
