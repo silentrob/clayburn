@@ -1,14 +1,25 @@
+/**
+ *  Smart Models
+ *
+ *  Models are an extension of Joyent Resources, the code *is* identical with a few additions.
+ *  Anything you can do with a Joyent Resource, you can do with a Model.
+ */
+
 system.use("com.joyent.Resource");
 var Model = function( typename, watches ) {
 
+      
       if (!watches) watches = {};
 
       var theType = function(attributes) {
-          
+    
         this.created = new Date();
         this.id      = system.uuid();
         this._set_watches();
+
+        this.errors = [];
         
+        // TODO - This needs to test against the properties.
         if (attributes) {
             for ( var x in attributes) {
                 this[x] = attributes[x];
@@ -23,6 +34,8 @@ var Model = function( typename, watches ) {
           watches['@constructor'].apply(this, arguments);
       };
 
+      theType.errors = [];
+      
       theType.transient = false;
 
       theType.all = function() {
@@ -142,6 +155,8 @@ var Model = function( typename, watches ) {
       };
 
       theType.prototype.save = function() {
+          var saveAttributes = true;
+          
           if ( this.created instanceof Date ) {
               this.created = this.created.getTime();
           }
@@ -152,8 +167,6 @@ var Model = function( typename, watches ) {
           if ( watches['@save'] ) {
               watches['@save'].apply(this, [ aCache ]);
           }
-
-          // system.datastore.write(typename, this, theType.transient);
           
           var params = {}
           
@@ -163,11 +176,28 @@ var Model = function( typename, watches ) {
               }
           }
           
-          system.datastore.write(typename, params, theType.transient);          
+
+          // Run against validators
+          if (theType.model.validations) {
+              
+              for (var x in theType.model.validations ) {
+                  if (params[x] == this[x]) {
+                      if (theType.model.validations[x](this) != true) {
+                          saveAttributes = false
+                      }
+                  }
+              }
+          }
+          
+          if (saveAttributes) {
+              system.datastore.write(typename, params, theType.transient);          
+          }
         
           if ( watches['@saved'] ) {
               watches['@saved'].apply(this, [ aCache ]);
           }
+
+          return saveAttributes;
       };
 
       theType.typename = typename;
@@ -198,6 +228,7 @@ var Model = function( typename, watches ) {
       }
       
       theType.join = [];
+
       
       for(var i in theType.model ) {
           if (i != "classMethods" && i != "instanceMethods" && i != "properties" ) {

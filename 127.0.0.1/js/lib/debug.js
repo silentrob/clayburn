@@ -19,7 +19,7 @@ log = function(message) {
                     str += i + " = EXCEPTION: " + e.message + "\n";
                 }
             }
-            return str;
+            return str;mate 
         }
         return "\nObject:\n" + makeStructured(message);
     }

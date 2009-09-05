@@ -48,7 +48,7 @@ ControllerMixin.prototype = {
                     this.response.code = thing.code;
                     this.response.body = '';
                 }
-                system.console.log("adsdasads" + log(options));
+
                 this.render(thing, options);
             } else {
                 this.render(options);
@@ -72,7 +72,6 @@ ControllerMixin.prototype = {
         
         var opts = opt || {};
         var renderContent = "";
-
 
         // If thing is just TEXT, we want to render that.
         if (typeof( thing ) == "string") {
