@@ -5,10 +5,14 @@ If you are familiar with Ruby on Rails, Merb or Code Igniter, Clayburn should be
 
 ## Getting Started ##
 
-Included is a remake of the Task Example provided by Joyent, this should give you a general idea how everything works.
+run the following from the root of your application to add
+smart-messagepub as a git submodule:
 
-    $cd /clayburn
-    $./run-smart.sh
+    git submodule add git://github.com/silentrob/clayburn.git js/clayburn
+
+In your `bootstrap.js` file tell your smart application to use clayburn:
+
+    system.use("clayburn.init")
 
 ### Router ###
 
