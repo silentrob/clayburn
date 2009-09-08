@@ -5,14 +5,16 @@ If you are familiar with Ruby on Rails, Merb or Code Igniter, Clayburn should be
 
 ## Getting Started ##
 
-run the following from the root of your application to add
-smart-messagepub as a git submodule:
+Clayburn comes with a nifty [generator](http://github.com/silentrob/clayburn-gen/tree/master) to get your project off and running quickly, run the following commands to generate a fresh application.
 
-    git submodule add git://github.com/silentrob/clayburn.git js/clayburn
+    gem sources -a http://gems.github.com
+    sudo gem install silentrob-clayburn-gen
+        
+    clayburn-gen app <app_name>
+    cd <app_name>
+    ./clayburn
 
-In your `bootstrap.js` file tell your smart application to use clayburn:
-
-    system.use("clayburn.init")
+Open your web browser to 127.0.0.1:8080 and you should see clayburn up and running.
 
 ### Router ###
 
