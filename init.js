@@ -7,4 +7,4 @@ system.use("clayburn.lib.template");
 system.use("clayburn.lib.exceptions");
 system.use("clayburn.lib.mime");
 system.use("clayburn.lib.ejs");
-system.use("clayburn.lib.ejsview")
+system.use("clayburn.lib.view")
