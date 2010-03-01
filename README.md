@@ -3,6 +3,8 @@
 Clayburn is a light weight MVC Framework built on the [Joyent Smart Platform](http://becoming.smart.joyent.com/index.html ) Unlock the power of unlimited scaling with a full featured MVC.
 If you are familiar with Ruby on Rails, Merb or Code Igniter, Clayburn should be easy to jump into.
 
+Smart Applications are different from other conventual web applications in that all requests built up and torn down. Nothing is left in memory after your request is served. No web server is left running after you request is served. 
+
 ## Getting Started ##
 
 Clayburn comes with a nifty [generator](http://github.com/silentrob/clayburn-gen/tree/master) to get your project off and running quickly, run the following commands to generate a fresh application.
