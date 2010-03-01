@@ -148,7 +148,7 @@ All the views use EJS - [Embedded Javascript](http://embeddedjs.com/).
 ## Questions, Comments, Bugs ##
 
 **Twitter**: rob_ellis    
-**Email**: rob.ellis at nitobi.com
+**Email**: kazoomer at gmail.com
 
 Feel free to email me any questions or comments. An Issue tracker will be setup soon, feel free to fork the code try it out or fix it :).
 
